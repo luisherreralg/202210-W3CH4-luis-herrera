@@ -63,7 +63,7 @@ export const SERIES = [
     year: 2017,
     poster:
       'https://i.etsystatic.com/11051930/r/il/332e73/1523147080/il_fullxfull.1523147080_3fd2.jpg',
-    watched: false,
+    watched: true,
     score: 0,
     emmies: 0,
   },

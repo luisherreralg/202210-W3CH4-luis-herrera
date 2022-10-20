@@ -1,8 +1,6 @@
 import { SERIES } from '../models/series.js';
 import { Store } from '../services/storage.js';
-// import { AddTask } from './add.task.js';
 import { Component } from './component.js';
-// import { ItemTask } from './item,task.js';
 export class SeriesListPending extends Component {
     constructor(selector) {
         super();
@@ -20,7 +18,6 @@ export class SeriesListPending extends Component {
     manageComponent() {
         this.template = this.createTemplate();
         this.render(this.selector, this.template);
-        // new AddTask('slot#add-task', this.handleAdd.bind(this));
         setTimeout(() => {
             document
                 .querySelectorAll('.icon--delete')
@@ -33,6 +30,10 @@ export class SeriesListPending extends Component {
         }, 100);
     }
     createTemplate() {
+        // No me funciona como espero :(
+        // this.series = this.series.filter((item: ISeries) => {
+        //   item.watched === true;
+        // });
         let template = `
     <section class="series-pending">
         <h3 class="subsection-title">Pending series</h3>
@@ -40,6 +41,7 @@ export class SeriesListPending extends Component {
         <!--<p class="info">Congrats! You've watched all your series</p>-->
         <ul class="series-list">`;
         this.series.forEach((item) => {
+            // He intentado quitar este if con el .filter de arriba, pero no me funciona :(
             if (!item.watched) {
                 template += `
       <li class="serie">
