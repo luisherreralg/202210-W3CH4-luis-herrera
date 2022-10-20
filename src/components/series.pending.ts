@@ -1,18 +1,13 @@
-// import { TASKS } from '../models/data.js';
-// import { Task } from '../models/task.js';
-import { arrayBuffer } from 'stream/consumers';
 import { ISeries, SERIES } from '../models/series.js';
 import { Store } from '../services/storage.js';
-// import { AddTask } from './add.task.js';
 import { Component } from './component.js';
-// import { ItemTask } from './item,task.js';
 
 export class SeriesListPending extends Component {
   template!: string;
-  series: Array<ISeries>;
   storeService: Store<ISeries>;
-  constructor(public selector: string) {
+  constructor(public selector: string, public series: Array<ISeries>) {
     super();
+    this.series = series;
     this.storeService = new Store('Series');
     if (this.storeService.getStore().length === 0) {
       this.series = [...SERIES];
@@ -20,12 +15,12 @@ export class SeriesListPending extends Component {
     } else {
       this.series = this.storeService.getStore();
     }
+    console.log(this.series);
     this.manageComponent();
   }
   manageComponent() {
     this.template = this.createTemplate();
     this.render(this.selector, this.template);
-    // new AddTask('slot#add-task', this.handleAdd.bind(this));
 
     setTimeout(() => {
       document
@@ -34,11 +29,11 @@ export class SeriesListPending extends Component {
           item.addEventListener('click', this.handlerEraser.bind(this))
         );
 
-      // document
-      //   .querySelectorAll('.icon--score')
-      //   .forEach((item) =>
-      //     item.addEventListener('click', this.handlerWatcher.bind(this))
-      //   );
+      document
+        .querySelectorAll('.icon--score')
+        .forEach((item) =>
+          item.addEventListener('click', this.handlerWatcher.bind(this))
+        );
     }, 100);
   }
 
@@ -61,20 +56,20 @@ export class SeriesListPending extends Component {
             <h4 class="serie__title">${item.name}</h4>
             <p class="serie__info">${item.creator} (${item.year})</p>
             <ul class="score">
-              <li class="score__star" id=${item.id}>
-                <i class="icon--score fas fa-star" title="1/5"></i>
+              <li class="score__star">
+                <i class="icon--score fas fa-star" title="1/5" id=${item.id}></i>
               </li>
-              <li class="score__star" id=${item.id}>
-                <i class="icon--score fas fa-star" title="2/5"></i>
+              <li class="score__star" >
+                <i class="icon--score fas fa-star" title="2/5" id=${item.id}></i>
               </li>
-              <li class="score__star" id=${item.id}>
-                <i class="icon--score fas fa-star" title="3/5"></i>
+              <li class="score__star">
+                <i class="icon--score fas fa-star" title="3/5" id=${item.id}></i>
               </li>
-              <li class="score__star" id=${item.id}>
-                <i class="icon--score fas fa-star" title="4/5"></i>
+              <li class="score__star">
+                <i class="icon--score fas fa-star" title="4/5" id=${item.id}></i>
               </li>
-              <li class="score__star" id=${item.id}>
-                <i class="icon--score fas fa-star" title="5/5"></i>
+              <li class="score__star">
+                <i class="icon--score fas fa-star" title="5/5" id=${item.id}></i>
               </li>
             </ul>
             <i class="fas fa-times-circle icon--delete" id=${item.id}></i>
@@ -96,13 +91,14 @@ export class SeriesListPending extends Component {
     this.manageComponent();
   }
 
-  // handlerWatcher(ev: Event) {
-  //   const watched = (ev.target as HTMLElement).id;
-  //   this.series = this.series.filter((item) => item.watched === false);
-  //   this.series.forEach((item) => {
-  //     item.watched === true;
-  //   });
-  //   this.storeService.setStore(this.series);
-  //   this.manageComponent();
-  // }
+  handlerWatcher(ev: Event) {
+    const changeID = (ev.target as HTMLElement).id;
+    this.series.forEach((item) => {
+      if (item.id === +changeID) {
+        return item.watched === true;
+      }
+    });
+
+    this.manageComponent();
+  }
 }

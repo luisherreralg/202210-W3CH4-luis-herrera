@@ -8,6 +8,4 @@ import { SeriesListWatched } from './components/series.watched.js';
   new Header('div.container');
   new Main('div.container');
   new SeriesContainer('main');
-  new SeriesListPending('.series');
-  new SeriesListWatched('.series');
 })();
