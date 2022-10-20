@@ -17,5 +17,7 @@
     "sourceType": "module"
   },
   "plugins": ["@typescript-eslint"],
-  "rules": {}
+  "rules": {
+    "eslint linebreak-style": ["error", "windows"]
+  }
 }
